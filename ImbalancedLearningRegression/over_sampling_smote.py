@@ -209,7 +209,9 @@ def over_sampling_smote(
     
     ## total number of new synthetic observations to generate
     n_synth = int(n * (perc - 1 - x_synth))
-    
+
+    if seed:
+        np.random.seed(seed = seed)
     ## randomly index data by the number of new synthetic observations
     r_index = np.random.choice(
         a = tuple(range(0, n)), 
@@ -226,7 +228,9 @@ def over_sampling_smote(
         for i in tqdm(range(n), ascii = True, desc = "synth_matrix"):
             
             for j in range(x_synth):
-                
+                if seed:
+                    np.random.seed(seed = seed)
+                    rd.seed(a = seed)
                 ## randomly select a k nearest neighbor
                 neigh = int(np.random.choice(
                     a = tuple(range(k)), 
@@ -243,6 +247,8 @@ def over_sampling_smote(
                 ## randomly assign nominal / categorical features from
                 ## observed cases and selected neighbors
                 for x in feat_list_nom:
+                    if seed:
+                        rd.seed(a = seed)
                     synth_matrix[i * x_synth + j, x] = [data.iloc[
                         knn_matrix[i, neigh], x], data.iloc[
                         i, x]][round(rd.random())]
@@ -279,7 +285,9 @@ def over_sampling_smote(
         count = 0
         
         for i in tqdm(r_index, ascii = True, desc = "r_index"):
-            
+            if seed:
+                np.random.seed(seed = seed)
+                rd.seed(a = seed)
             ## randomly select a k nearest neighbor
             neigh = int(np.random.choice(
                 a = tuple(range(0, k)), 
@@ -295,6 +303,8 @@ def over_sampling_smote(
             ## randomly assign nominal / categorical features from
             ## observed cases and selected neighbors
             for x in feat_list_nom:
+                if seed:
+                        rd.seed(a = seed)
                 synth_matrix[x_synth * n + count, x] = [data.iloc[
                     knn_matrix[i, neigh], x], data.iloc[
                     i, x]][round(rd.random())]
