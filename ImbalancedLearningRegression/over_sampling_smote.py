@@ -14,8 +14,8 @@ def over_sampling_smote(
     data,       ## training set
     index,      ## index of input data
     perc,       ## oversampling percentage
-    k           ## num of neighs for over-sampling
-    
+    k,           ## num of neighs for over-sampling
+    seed = None         ## random seed for sampling (pos int or None)
     ):
     
     """
