@@ -14,7 +14,7 @@ def over_sampling_gn(
     perc,       ## over / under sampling
     pert,       ## perturbation / noise percentage
     replace,    ## sampling replacement (bool)
-    
+    seed = None         ## random seed for sampling (pos int or None)
     ):
     
     """
@@ -153,7 +153,11 @@ def over_sampling_gn(
     
     ## total number of new synthetic observations to generate
     n_synth = int(n * (perc - 1 - x_synth))
-    
+
+
+    if seed:
+        np.random.seed(seed = seed)
+        
     ## randomly index data by the number of new synthetic observations
     r_index = np.random.choice(
         a = tuple(range(0, n)), 
@@ -170,6 +174,8 @@ def over_sampling_gn(
         for i in tqdm(range(n), ascii = True, desc = "synth_matrix"):  
             for j in range(x_synth):
                 for attr in range(d):
+                    if seed:
+                        np.random.seed(seed = seed)
                     if pd.isna(data.iloc[i, attr]):
                             synth_matrix[i * x_synth + j, attr] = None
                     if attr in feat_list_nom:
@@ -185,6 +191,8 @@ def over_sampling_gn(
         count = 0 
         for i in tqdm(r_index, ascii = True, desc = "r_index"):
             for attr in range(d):
+                    if seed:
+                        np.random.seed(seed = seed)
                     if pd.isna(data.iloc[i, attr]):
                             synth_matrix[x_synth * n + count, attr] = None
                     if attr in feat_list_nom:
