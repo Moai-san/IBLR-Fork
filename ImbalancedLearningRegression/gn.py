@@ -260,7 +260,8 @@ def gn(
                 index = list(b_index[i].index),
                 perc = s_perc[i] if not manual_perc else perc_o + 1,  # modified
                 pert = pert,
-                replace = replace  # added
+                replace = replace,  # added
+                seed = seed
             )
             
             ## concatenate over-sampling
