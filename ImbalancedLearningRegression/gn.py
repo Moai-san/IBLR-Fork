@@ -25,6 +25,7 @@ def gn(
     manual_perc = False,      ## user defines percentage of under-sampling and over-sampling  # added
     perc_u = -1,              ## percentage of under-sampling  # added
     perc_o = -1,              ## percentage of over-sampling  # added
+    seed = None,       ## seed for random sampling (pos int or None)
     
     ## phi relevance function arguments / inputs
     rel_thres = 0.5,          ## relevance threshold considered rare (pos real)
@@ -137,7 +138,9 @@ def gn(
     
     if rel_thres > 1 or rel_thres <= 0:
         raise ValueError("rel_thres must be a real number number: 0 < R < 1")
-    
+    if seed:
+        np.random.seed(seed = seed)
+        
     ## store data dimensions
     n = len(data)
     d = len(data.columns)
