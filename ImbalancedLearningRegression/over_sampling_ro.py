@@ -13,7 +13,7 @@ def over_sampling_ro(
     index,      ## index of input data
     perc,       ## over / under sampling
     replace,    ## sampling replacement (bool)
-    
+    seed = None         ## random seed for sampling (pos int or None)
     ):
     
     """
@@ -152,7 +152,10 @@ def over_sampling_ro(
     
     ## total number of new synthetic observations to generate
     n_synth = int(n * (perc - 1 - x_synth))
-    
+
+    if seed:
+        np.random.seed(seed = seed)
+        
     ## randomly index data by the number of new synthetic observations
     r_index = np.random.choice(
         a = tuple(range(0, n)), 
