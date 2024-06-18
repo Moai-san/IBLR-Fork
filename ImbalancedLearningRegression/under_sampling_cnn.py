@@ -14,7 +14,8 @@ def under_sampling_cnn(
     index,          ## index of input data
     estimator,      ## KNN classifier
     store_indices,  ## original indices of STORE are those in the minority set
-    n_seed          ## number of seed samples moved from a mojority set to STORE at the beginning
+    n_seed,          ## number of seed samples moved from a mojority set to STORE at the beginning
+    seed = None         ## random seed for sampling (pos int or None),
     
     ):
     
