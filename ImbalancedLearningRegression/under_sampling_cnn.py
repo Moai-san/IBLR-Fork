@@ -67,10 +67,17 @@ def under_sampling_cnn(
     
     ## randomly pick one or more sample(s) from majority and add it to STORE
     try:
+        if seed:
+            np.random.seed(seed = seed)
+            
         normal_seed_index = list(np.random.choice(a = index, size = n_seed, replace = False))
     except ValueError:
         print("n_seed =", n_seed, ">", len(index))
         print("WARNING: n_seed is greater than the number of samples avaiable in a majority bin, used n_seed = 1 instead!")
+        
+        if seed:
+            np.random.seed(seed = seed)
+        
         normal_seed_index = list(np.random.choice(a = index, size = 1, replace = False))
     store_indices.extend(normal_seed_index)
 
@@ -148,6 +155,10 @@ def under_sampling_cnn(
     train_X_minmax = min_max_scaler.fit_transform(train_X)
     estimator.fit(train_X_minmax, train_y)
 
+    if seed:
+        np.random.seed(seed = seed)
+        rd.seed(a = seed)
+    
     ## loop through the majority set
     randomized_index = index.copy()
     rd.shuffle(randomized_index)
