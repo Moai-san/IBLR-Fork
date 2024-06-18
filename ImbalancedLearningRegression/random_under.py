@@ -25,8 +25,8 @@ def random_under(
     rel_method = "auto",      ## relevance method ("auto" or "manual")
     rel_xtrm_type = "both",   ## distribution focus ("high", "low", "both")
     rel_coef = 1.5,           ## coefficient for box plot (pos real)
-    rel_ctrl_pts_rg = None    ## input for "manual" rel method  (2d array)
-    seed = None,         ## random seed for sampling (pos int or None),
+    rel_ctrl_pts_rg = None,    ## input for "manual" rel method  (2d array)
+    seed = None         ## random seed for sampling (pos int or None),
     
     ):
     
