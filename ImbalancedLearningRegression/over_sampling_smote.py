@@ -15,7 +15,8 @@ def over_sampling_smote(
     index,      ## index of input data
     perc,       ## oversampling percentage
     k,           ## num of neighs for over-sampling
-    seed = None         ## random seed for sampling (pos int or None)
+    seed = None,         ## random seed for sampling (pos int or None),
+    p_bar = True         ## progress bar print enable/disable
     ):
     
     """
@@ -155,8 +156,12 @@ def over_sampling_smote(
     ## calculate distance between observations based on data types
     ## store results over null distance matrix of n x n
     dist_matrix = np.ndarray(shape = (n, n))
-    
-    for i in tqdm(range(n), ascii = True, desc = "dist_matrix"):
+    if (p_bar is True) :
+        iterations = tqdm(range(n), ascii = True, desc = "dist_matrix")
+    else:
+        iterations = range(n)
+        
+    for i in iterations:
         for j in range(n):
             
             ## utilize euclidean distance given that 
@@ -225,7 +230,11 @@ def over_sampling_smote(
     synth_matrix = np.ndarray(shape = ((x_synth * n + n_synth), d))
     
     if x_synth > 0:
-        for i in tqdm(range(n), ascii = True, desc = "synth_matrix"):
+        if (p_bar is True) :
+            iterations = tqdm(range(n), ascii = True, desc = "synth_matrix")
+        else:
+            iterations = range(n)
+        for i in iterations:
             
             for j in range(x_synth):
                 if seed:
@@ -283,8 +292,11 @@ def over_sampling_smote(
     
     if n_synth > 0:
         count = 0
-        
-        for i in tqdm(r_index, ascii = True, desc = "r_index"):
+        if (p_bar is True) :
+            iterations = tqdm(r_index, ascii = True, desc = "r_index")
+        else:
+            iterations = r_index
+        for i in iterations:
             if seed:
                 np.random.seed(seed = seed)
                 rd.seed(a = seed)
