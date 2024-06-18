@@ -26,6 +26,7 @@ def random_under(
     rel_xtrm_type = "both",   ## distribution focus ("high", "low", "both")
     rel_coef = 1.5,           ## coefficient for box plot (pos real)
     rel_ctrl_pts_rg = None    ## input for "manual" rel method  (2d array)
+    seed = None,         ## random seed for sampling (pos int or None),
     
     ):
     
@@ -238,7 +239,8 @@ def random_under(
                 data = data,
                 index = list(b_index[i].index),
                 perc = s_perc[i] if not manual_perc else perc_u,  # modified
-                replacement = replacement  # added
+                replacement = replacement,  # added
+                seed = seed
             )
             
             ## concatenate over-sampling
