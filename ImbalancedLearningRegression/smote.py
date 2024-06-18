@@ -24,7 +24,8 @@ def smote(
     rel_xtrm_type = "both",   ## distribution focus ("high", "low", "both")
     rel_coef = 1.5,           ## coefficient for box plot (pos real)
     rel_ctrl_pts_rg = None,    ## input for "manual" rel method  (2d array)
-    seed = None         ## random seed for sampling (pos int or None)
+    seed = None,         ## random seed for sampling (pos int or None)
+    p_bar = True         ## progress bar print enable/disable
     
     ):
     
@@ -229,7 +230,8 @@ def smote(
                 index = list(b_index[i].index),
                 perc = s_perc[i],
                 k = k,
-                seed = seed
+                seed = seed,
+                p_bar = p_bar
             )
             
             ## concatenate over-sampling
