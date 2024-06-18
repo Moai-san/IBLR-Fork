@@ -11,7 +11,8 @@ def under_sampling_random(
     data,       ## training set
     index,      ## index of input data
     perc,       ## under sampling
-    replacement ## sampling replacement (bool)
+    replacement, ## sampling replacement (bool)
+    seed = None         ## random seed for sampling (pos int or None),
     
     ):
     
@@ -125,10 +126,13 @@ def under_sampling_random(
     ## total number of majority samples to be removed
     n_synth = int(n * perc)
     
+    if seed:
+        np.random.seed(seed = seed)
+
     ## randomly choose index data by the number of majority samples to be removed
     ## "replace" is a parameter of np.random.choice, meaning that if 
     ## a value can be selected multiple times. This is the same as the 
-    ## "replacement" parameter defined in "random_under()
+    ## "replacement" parameter defined in "random_under()        
     r_index = np.random.choice(
         a = tuple(range(0, n)), 
         size = n_synth,
